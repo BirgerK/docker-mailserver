@@ -559,7 +559,7 @@ function _setup_ldap() {
 	sed -i -e 's|^hosts.*|hosts = '${LDAP_SERVER_HOST:="mail.domain.com"}'|g' \
 		-e 's|^base.*|base = '${LDAP_SEARCH_BASE:="ou=people,dc=domain,dc=com"}'|g' \
 		-e 's|^dn\s*=.*|dn = '${LDAP_BIND_DN:="cn=admin,dc=domain,dc=com"}'|g' \
-		-e 's|^dnpass\s*=.*|dnpass = '${LDAP_BIND_PW:="admin"}'|g' \
+		-e 's|^dnpass\s*=.*|dnpass = \"'${LDAP_BIND_PW:="admin"}'\"|g' \
 		/etc/dovecot/dovecot-ldap.conf.ext
 
 	# Add  domainname to vhost.
