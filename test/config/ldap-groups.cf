@@ -2,7 +2,7 @@
 bind                     = yes
 bind_dn                  = cn=admin,dc=domain,dc=com
 bind_pw                  = admin
-query_filter             = (&(mailGroupMember=%s)(mailEnabled=TRUE))
+query_filter             = (&(mailGroupMember=%s)(mailenable=TRUE))
 result_attribute         = mail
 search_base              = ou=people,dc=domain,dc=com
 server_host              = mail.domain.com

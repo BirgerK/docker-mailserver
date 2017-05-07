@@ -324,7 +324,7 @@ function override_config() {
     _env_variable_prefix=$1
     [ -z ${_env_variable_prefix} ] && return 1
 
-    
+
     IFS=" " read -r -a _config_files <<< $2
 
     # dispatch env variables
@@ -347,12 +347,12 @@ function override_config() {
     for f in "${_config_files[@]}"
     do
 	if [ ! -f "${f}" ];then
-	    echo "Can not find ${f}. Skipping override" 
+	    echo "Can not find ${f}. Skipping override"
 	else
-	    for key in ${!config_overrides[@]} 
+	    for key in ${!config_overrides[@]}
 	    do
 		[ -z $key ] && echo -e "\t no key provided" && return 1
-		
+
 		sed -i -e "s|^${key}[[:space:]]\+.*|${key} = "${config_overrides[$key]}'|g' \
 		    ${f}
 	    done
@@ -547,7 +547,7 @@ function _setup_ldap() {
 	for i in 'users' 'groups' 'aliases'; do
 	    fpath="/tmp/docker-mailserver/ldap-${i}.cf"
 	    if [ -f $fpath ]; then
-		cp ${fpath} /etc/postfix/ldap-${i}.cf 
+		cp ${fpath} /etc/postfix/ldap-${i}.cf
 	    fi
 	done
 
@@ -561,7 +561,7 @@ function _setup_ldap() {
 		-e 's|^dn\s*=.*|dn = '${LDAP_BIND_DN:="cn=admin,dc=domain,dc=com"}'|g' \
 		-e 's|^dnpass\s*=.*|dnpass = '${LDAP_BIND_PW:="admin"}'|g' \
 		/etc/dovecot/dovecot-ldap.conf.ext
-					  
+
 	# Add  domainname to vhost.
 	echo $DOMAINNAME >> /tmp/vhost.tmp
 
@@ -605,7 +605,7 @@ EOF
     # cyrus sasl or dovecot sasl
     if [[ ${ENABLE_SASLAUTHD} == 1 ]] || [[ ${SMTP_ONLY} == 0 ]];then
 	sed -i -e 's|^smtpd_sasl_auth_enable[[:space:]]\+.*|smtpd_sasl_auth_enable = yes|g' /etc/postfix/main.cf
-    else 
+    else
 	sed -i -e 's|^smtpd_sasl_auth_enable[[:space:]]\+.*|smtpd_sasl_auth_enable = no|g' /etc/postfix/main.cf
     fi
 
@@ -620,7 +620,7 @@ function _setup_saslauthd() {
 	[ -z "$SASLAUTHD_MECHANISMS" ] && SASLAUTHD_MECHANISMS=pam
 	[ "$SASLAUTHD_MECHANISMS" = ldap -a -z "$SASLAUTHD_LDAP_SEARCH_BASE" ] && SASLAUTHD_MECHANISMS=pam
 	[ -z "$SASLAUTHD_LDAP_SERVER" ] && SASLAUTHD_LDAP_SERVER=localhost
-	[ -z "$SASLAUTHD_LDAP_FILTER" ] && SASLAUTHD_LDAP_FILTER='(&(uniqueIdentifier=%u)(mailEnabled=TRUE))'
+	[ -z "$SASLAUTHD_LDAP_FILTER" ] && SASLAUTHD_LDAP_FILTER='(&(uniqueIdentifier=%u)(mailenable=TRUE))'
 	([ -z "$SASLAUTHD_LDAP_SSL" ] || [ $SASLAUTHD_LDAP_SSL == 0 ]) && SASLAUTHD_LDAP_PROTO='ldap://' || SASLAUTHD_LDAP_PROTO='ldaps://'
 
 	if [ ! -f /etc/saslauthd.conf ]; then
