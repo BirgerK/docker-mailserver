@@ -6,4 +6,5 @@ hosts               = mail.domain.com
 ldap_version        = 3
 pass_attrs          = uniqueIdentifier=user,userPassword=password
 pass_filter         = (&(objectClass=mailAccount)(uniqueIdentifier=%n))
+user_attrs          = mailHomeDirectory=homeDirectory,mailUidNumber=uid,mailGidNumber=gid,mailStorageDirectory=mail
 user_filter         = (&(objectClass=mailAccount)(uniqueIdentifier=%n))
