@@ -6,5 +6,7 @@ hosts               = mail.domain.com
 ldap_version        = 3
 pass_attrs          = uid=user,userPassword=password
 pass_filter         = (&(objectClass=mailAccount)(uid=%n))
-user_attrs          = homeDirectory=homeDirectory,uidNumber=5000,gidNumber=5000
+user_attrs          = \
+    =home=/var/mail/%{ldap:mail}, \
+    =mail=maildir:/var/mail/%{ldap:mail}/Maildir
 user_filter         = (&(objectClass=mailAccount)(uid=%n))
